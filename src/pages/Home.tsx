@@ -172,7 +172,7 @@ const Home: React.FC = () => {
                       ease: 'linear',
                     }}
                   />
-                </div>
+                </motion.div>
                 <h3 className="font-poppins text-xl font-semibold text-black mb-4">
                   {feature.title}
                 </h3>
