@@ -1,5 +1,5 @@
 services:
-  - name: "SEO"
+  - name: "Search Engine Optimization (SEO)"
     slug: "seo"
     description: "Dominate search rankings with advanced optimization strategies that drive qualified organic traffic and sustainable growth."
     sub_services:
@@ -12,7 +12,7 @@ services:
       - name: "Local SEO Management"
         description: "Geographic optimization ensuring maximum visibility in local search results and Google My Business listings."
   
-  - name: "PPC Advertising"
+  - name: "Pay-Per-Click (PPC) Advertising"
     slug: "ppc-advertising"
     description: "Maximize ROI with precision-targeted campaigns across Google Ads, Facebook, LinkedIn, and emerging platforms."
     sub_services:
@@ -25,7 +25,7 @@ services:
       - name: "Programmatic Display"
         description: "Automated ad buying across premium inventory with real-time optimization and audience targeting."
   
-  - name: "Content Marketing"
+  - name: "Content Marketing & Strategy"
     slug: "content-marketing"
     description: "Build authority and engage audiences with strategic content creation, distribution, and performance optimization."
     sub_services:
@@ -51,7 +51,7 @@ services:
       - name: "Influencer Partnerships"
         description: "Strategic collaborations with industry influencers driving authentic brand awareness and audience growth."
   
-  - name: "Email Marketing"
+  - name: "Email Marketing Automation"
     slug: "email-marketing"
     description: "Nurture leads and retain customers with personalized automation campaigns and advanced segmentation strategies."
     sub_services:

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useServices } from '../hooks/useServices';
-import TiltCard from '../components/UI/TiltCard';
+import InteractiveServiceGrid from '../components/UI/InteractiveServiceGrid';
 
 const Services: React.FC = () => {
-  const { services, loading, error } = useServices();
-  const [hoveredService, setHoveredService] = useState<string | null>(null);
+  const { services, loading } = useServices();
 
   if (loading) {
     return (
@@ -19,166 +18,154 @@ const Services: React.FC = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="font-roboto text-red-600 mb-4">Error loading services: {error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="bg-black text-white px-6 py-2 rounded hover:bg-dark-gray transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 bg-light-gray">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-32 bg-gradient-to-br from-light-gray via-white to-light-gray relative overflow-hidden">
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              backgroundPosition: ['0% 0%', '100% 100%'],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, black 2px, transparent 0)',
+              backgroundSize: '40px 40px',
+            }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-poppins text-5xl md:text-6xl font-bold text-black mb-6"
+            className="font-poppins text-6xl md:text-7xl font-bold text-black mb-8"
           >
-            Our Services
+            Complete Digital
+            <br />
+            <span className="bg-gradient-to-r from-black via-dark-gray to-black bg-clip-text text-transparent">
+              Solutions Suite
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-roboto text-lg text-dark-gray max-w-3xl mx-auto"
+            className="font-roboto text-xl text-dark-gray max-w-4xl mx-auto leading-relaxed"
           >
-            Comprehensive digital marketing solutions designed to accelerate your business growth 
-            and maximize your online presence across all channels.
+            From SEO domination to custom software development, B2B lead generation to e-commerce optimization—
+            we deliver end-to-end solutions that transform businesses and drive exponential growth.
           </motion.p>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto"
+          >
+            {[
+              { number: '10+', label: 'Service Categories' },
+              { number: '40+', label: 'Specialized Solutions' },
+              { number: '500+', label: 'Projects Delivered' },
+              { number: '98%', label: 'Success Rate' },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                className="text-center"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <div className="font-poppins text-3xl md:text-4xl font-bold text-black mb-2">
+                  {stat.number}
+                </div>
+                <div className="font-roboto text-dark-gray text-sm">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.slug}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                onMouseEnter={() => setHoveredService(service.slug)}
-                onMouseLeave={() => setHoveredService(null)}
-              >
-                <TiltCard className="h-full">
-                  <div className="relative h-80 bg-black rounded-lg overflow-hidden group cursor-pointer">
-                    {/* Animated Background */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-black via-dark-gray to-black"
-                      animate={{
-                        background: hoveredService === service.slug 
-                          ? 'linear-gradient(135deg, #000000 0%, #333333 50%, #000000 100%)'
-                          : 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)'
-                      }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    
-                    {/* Glow Effect */}
-                    <motion.div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-20"
-                      animate={{
-                        background: 'radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%)'
-                      }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    
-                    {/* Content */}
-                    <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                      <div>
-                        <motion.h3
-                          className="font-poppins text-2xl font-bold text-white mb-4"
-                          animate={{
-                            scale: hoveredService === service.slug ? 1.05 : 1
-                          }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {service.name}
-                        </motion.h3>
-                        <p className="font-roboto text-light-gray text-sm leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
-                      
-                      <div className="mt-6">
-                        <Link
-                          to={`/services/${service.slug}`}
-                          className="inline-flex items-center font-poppins font-semibold text-white hover:text-light-gray transition-colors duration-200 group"
-                        >
-                          Learn More
-                          <motion.span
-                            className="ml-2"
-                            animate={{
-                              x: hoveredService === service.slug ? 5 : 0
-                            }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            →
-                          </motion.span>
-                        </Link>
-                      </div>
-                    </div>
-                    
-                    {/* Shine Effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-10"
-                      animate={{
-                        x: hoveredService === service.slug ? ['0%', '100%'] : '0%',
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        ease: 'easeInOut',
-                      }}
-                    />
-                  </div>
-                </TiltCard>
-              </motion.div>
-            ))}
-          </div>
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20 px-4 sm:px-6 lg:px-8"
+          >
+            <h2 className="font-poppins text-4xl md:text-5xl font-bold text-black mb-6">
+              Interactive Service Explorer
+            </h2>
+            <p className="font-roboto text-lg text-dark-gray max-w-2xl mx-auto">
+              Hover over each service to discover our comprehensive solutions and see how we can transform your business.
+            </p>
+          </motion.div>
+
+          <InteractiveServiceGrid services={services} />
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-black">
+      <section className="py-32 bg-gradient-to-br from-black via-dark-gray to-black relative overflow-hidden">
+        {/* Animated Background */}
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 20%, white 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 80%, white 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 80%, white 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 20%, white 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 20%, white 0%, transparent 50%)',
+            ],
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-poppins text-4xl font-bold text-white mb-6"
+            className="font-poppins text-5xl md:text-6xl font-bold text-white mb-8"
           >
-            Ready to Transform Your Business?
+            Let's Build Something
+            <br />
+            Extraordinary Together
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-roboto text-lg text-light-gray mb-8"
+            className="font-roboto text-xl text-light-gray mb-12 max-w-2xl mx-auto"
           >
-            Let's discuss how our comprehensive digital marketing solutions can accelerate your growth.
+            Every great success story starts with a conversation. Let's discuss your vision and create a custom strategy that delivers exceptional results.
           </motion.p>
-          <motion.div
+          
+          <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center"
           >
             <Link
               to="/contact"
-              className="inline-block bg-white text-black px-8 py-4 rounded-lg font-poppins font-semibold text-lg transition-all duration-300 hover:bg-light-gray hover:scale-105 hover:shadow-lg"
+              className="bg-white text-black px-12 py-5 rounded-full font-poppins font-bold text-lg transition-all duration-300 hover:bg-light-gray hover:scale-105 hover:shadow-2xl"
             >
-              Get Started Today
+              Start Your Project
+            </Link>
+            <Link
+              to="/portfolio"
+              className="border-2 border-white text-white px-12 py-5 rounded-full font-poppins font-bold text-lg transition-all duration-300 hover:bg-white hover:text-black"
+            >
+              View Our Work
             </Link>
           </motion.div>
         </div>
