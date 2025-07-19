@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ExternalLink, Star, Award, Users, TrendingUp, Zap } from 'lucide-react';
+import { ExternalLink, Star, Award, Users, TrendingUp, Zap, Target, Code, Database, Palette, Mail, ShoppingCart } from 'lucide-react';
 import HeroSection from '../components/UI/HeroSection';
 import AdvancedFeatures from '../components/UI/AdvancedFeatures';
 
@@ -70,10 +70,132 @@ const Home: React.FC = () => {
     'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=150&h=75&dpr=1',
   ];
 
+  const serviceHighlights = [
+    {
+      icon: Target,
+      title: 'SEO & SEM Mastery',
+      description: 'Dominate search rankings with AI-powered optimization strategies that drive qualified organic traffic and sustainable growth.',
+      stats: '300% Traffic Growth',
+    },
+    {
+      icon: Code,
+      title: 'Full-Stack Development',
+      description: 'Custom web applications, mobile apps, and software solutions built with cutting-edge technologies and scalable architecture.',
+      stats: '500+ Projects Delivered',
+    },
+    {
+      icon: Database,
+      title: 'B2B Lead Generation',
+      description: 'Comprehensive database solutions and cold outreach automation that convert prospects into qualified opportunities.',
+      stats: '10M+ Leads Generated',
+    },
+    {
+      icon: ShoppingCart,
+      title: 'E-commerce Excellence',
+      description: 'Complete online retail strategies including marketplace optimization, conversion rate improvement, and sales automation.',
+      stats: '250% Revenue Increase',
+    },
+    {
+      icon: Mail,
+      title: 'Email Marketing Automation',
+      description: 'Sophisticated drip campaigns and personalized automation sequences that nurture leads and maximize customer lifetime value.',
+      stats: '45% Open Rate Average',
+    },
+    {
+      icon: Palette,
+      title: 'Brand Strategy & Design',
+      description: 'Complete brand identity development and strategic positioning that resonates with target audiences and drives engagement.',
+      stats: '98% Client Satisfaction',
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Service Highlights Section */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="font-poppins text-5xl md:text-6xl font-bold text-black mb-6">
+              Complete Digital Solutions
+              <br />
+              <span className="bg-gradient-to-r from-black via-dark-gray to-black bg-clip-text text-transparent">
+                Under One Roof
+              </span>
+            </h2>
+            <p className="font-roboto text-xl text-dark-gray max-w-3xl mx-auto leading-relaxed">
+              From SEO domination to custom software development, B2B lead generation to e-commerce optimization—
+              we deliver end-to-end solutions that transform businesses.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {serviceHighlights.map((service, index) => {
+              const IconComponent = service.icon;
+              
+              return (
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group relative"
+                  whileHover={{ y: -10 }}
+                >
+                  <div className="relative h-full bg-light-gray rounded-3xl p-8 overflow-hidden">
+                    {/* Background Animation */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-black to-dark-gray opacity-0 group-hover:opacity-5 rounded-3xl"
+                      transition={{ duration: 0.3 }}
+                    />
+
+                    {/* Icon */}
+                    <motion.div
+                      className="mb-6"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center">
+                        <IconComponent className="w-8 h-8 text-white" />
+                      </div>
+                    </motion.div>
+
+                    {/* Stats Badge */}
+                    <div className="absolute top-6 right-6 bg-black text-white px-3 py-1 rounded-full text-sm font-poppins font-semibold">
+                      {service.stats}
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="font-poppins text-xl font-bold text-black mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="font-roboto text-dark-gray leading-relaxed">
+                      {service.description}
+                    </p>
+
+                    {/* Hover Effect Line */}
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-1 bg-black"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: '100%' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Advanced Features Section */}
       <AdvancedFeatures />
